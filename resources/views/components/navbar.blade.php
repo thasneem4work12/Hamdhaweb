@@ -26,9 +26,6 @@
             <button @click="searchOpen = true" class="lg:hidden text-text-dark">
                 <x-heroicon-o-magnifying-glass class="w-5 h-5" />
             </button>
-            <a href="{{ url('/admin') }}" class="text-text-dark hover:text-primary transition">
-                <x-heroicon-o-user class="w-5 h-5 lg:w-6 lg:h-6" />
-            </a>
         </div>
     </div>
 
