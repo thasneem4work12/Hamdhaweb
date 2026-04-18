@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Search Results — Hamdha Clothing')
+@section('title', 'Search Results for "' . $query . '" — Hamdha Clothing')
+@section('meta_description', 'Search results for "' . $query . '" at Hamdha Clothing.')
 
 @section('content')
 <!-- Breadcrumbs -->

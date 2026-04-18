@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
-@section('title', $pageTitle ?? 'Products — Hamdha Clothing')
+@section('title', ($pageTitle ?? 'Products') . ' — Hamdha Clothing')
+@section('meta_description', 'Browse our ' . ($pageTitle ?? 'products') . ' collection of custom abayas.')
 
 @section('content')
     <nav class="max-w-7xl mx-auto px-4 lg:px-16 pt-6 pb-2">

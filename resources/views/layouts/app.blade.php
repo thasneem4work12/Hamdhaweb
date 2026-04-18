@@ -6,6 +6,8 @@
     <title>@yield('title', 'Hamdha Clothing — Custom Design Abayas')</title>
     <meta name="description" content="@yield('meta_description', 'Premium custom abayas crafted with care. Every piece is made to order, tailored to your unique preferences.')">
 
+    @yield('json_ld')
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">

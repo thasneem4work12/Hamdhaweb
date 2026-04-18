@@ -1,8 +1,27 @@
 @extends('layouts.app')
 
 @section('title', $product->name . ' — Hamdha Clothing')
+@section('meta_description', Str::limit(strip_tags($product->description), 160))
 
 @section('content')
+@section('json_ld')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "{{ $product->name }}",
+    "image": "{{ $product->images->first() ? asset('storage/' . $product->images->first()->image_path) : '' }}",
+    "description": "{{ Str::limit(strip_tags($product->description), 200) }}",
+    "sku": "{{ $product->model_number }}",
+    "offers": {
+        "@type": "Offer",
+        "price": "{{ $product->discount_price ?? $product->price }}",
+        "priceCurrency": "LKR",
+        "availability": "https://schema.org/InStock"
+    }
+}
+</script>
+@overwrite
 
 <div class="max-w-7xl mx-auto px-4 lg:px-16 py-6">
   <nav class="mb-6">
@@ -33,7 +52,7 @@
             class="flex-shrink-0 w-[70px] aspect-[4/5] overflow-hidden border-2 transition"
             :class="activeImage === {{ $i }} ? 'border-primary' : 'border-transparent'"
           >
-            <img src="{{ asset('storage/' . $image->thumbnail_path) }}" class="w-full h-full object-cover" alt="">
+            <img src="{{ asset('storage/' . $image->thumbnail_path) }}" class="w-full h-full object-cover" loading="lazy" alt="{{ $product->name }} thumbnail">
           </button>
           @endforeach
         </div>

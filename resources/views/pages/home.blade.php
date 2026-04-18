@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Hamdha Clothing — Custom Design Abayas Made For You')
+@section('meta_description', 'Premium custom abayas crafted with care. Every piece is made to order, tailored to your unique preferences.')
 
 @section('content')
 
