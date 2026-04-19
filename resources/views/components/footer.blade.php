@@ -4,7 +4,7 @@
     <div class="max-w-7xl mx-auto px-4 lg:px-16 py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
-                <img src="{{ asset('images/logo-white.svg') }}" alt="Hamdha" class="h-7 mb-4">
+                <img src="{{ asset('images/logo-light.png') }}" alt="Hamdha" class="h-4 w-auto mb-4">
                 <p class="text-sm text-gray-300 leading-relaxed">{{ $settings['footer_tagline'] ?? '' }}</p>
             </div>
 

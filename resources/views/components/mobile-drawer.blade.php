@@ -11,7 +11,7 @@
          x-transition:leave="transition ease-in duration-200" x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full">
 
         <div class="flex justify-between items-center p-4 border-b border-gray-100">
-            <img src="{{ asset('images/logo.svg') }}" alt="Hamdha" class="h-6">
+            <img src="{{ asset('images/logo-dark.png') }}" alt="Hamdha" class="h-5 w-auto">
             <button @click="drawerOpen = false" class="text-text-dark">
                 <x-heroicon-o-x-mark class="w-6 h-6" />
             </button>

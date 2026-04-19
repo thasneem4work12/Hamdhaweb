@@ -7,7 +7,7 @@
         </button>
 
         <a href="{{ route('home') }}" class="flex-shrink-0">
-            <img src="{{ asset('images/logo.svg') }}" alt="Hamdha" class="h-7 lg:h-9">
+            <img src="{{ asset('images/logo-dark.png') }}" alt="Hamdha" class="h-5 lg:h-6 w-auto">
         </a>
 
         <div class="hidden lg:flex flex-1 max-w-md mx-8">
