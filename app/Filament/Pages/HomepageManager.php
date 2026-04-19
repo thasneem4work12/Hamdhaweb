@@ -37,6 +37,7 @@ class HomepageManager extends Page
             'hero_title' => $hero?->title ?? '',
             'hero_subtitle' => $hero?->subtitle ?? '',
             'hero_content' => $hero?->content ?? '',
+            'hero_image' => $hero?->image_path ?? null,
             'hero_cta_text' => $hero?->cta_text ?? '',
             'hero_cta_url' => $hero?->cta_url ?? '',
             'hero_is_visible' => $hero?->is_visible ?? true,
@@ -48,6 +49,7 @@ class HomepageManager extends Page
 
             'mission_title' => $mission?->title ?? '',
             'mission_content' => $mission?->content ?? '',
+            'mission_image' => $mission?->image_path ?? null,
             'mission_cta_text' => $mission?->cta_text ?? '',
             'mission_cta_url' => $mission?->cta_url ?? '',
             'mission_is_visible' => $mission?->is_visible ?? true,
@@ -71,7 +73,9 @@ class HomepageManager extends Page
                     Forms\Components\FileUpload::make('hero_image')
                         ->label('Background Image')
                         ->image()
-                        ->directory('homepage'),
+                        ->disk('public')
+                        ->directory('homepage')
+                        ->nullable(),
                     Forms\Components\TextInput::make('hero_cta_text')
                         ->label('Button Text'),
                     Forms\Components\TextInput::make('hero_cta_url')
@@ -110,7 +114,9 @@ class HomepageManager extends Page
                     Forms\Components\FileUpload::make('mission_image')
                         ->label('Image')
                         ->image()
-                        ->directory('homepage'),
+                        ->disk('public')
+                        ->directory('homepage')
+                        ->nullable(),
                     Forms\Components\TextInput::make('mission_cta_text')
                         ->label('Button Text'),
                     Forms\Components\TextInput::make('mission_cta_url')
@@ -125,10 +131,18 @@ class HomepageManager extends Page
         $data = $this->form->getState();
         $imageService = app(ImageService::class);
 
+        $hero = HomepageSection::getSection('hero');
+        $heroImagePath = $this->processSectionImage(
+            $imageService,
+            $data['hero_image'] ?? null,
+            $hero?->image_path,
+        );
+
         HomepageSection::updateSection('hero', [
             'title' => $data['hero_title'] ?? '',
             'subtitle' => $data['hero_subtitle'] ?? '',
             'content' => $data['hero_content'] ?? '',
+            'image_path' => $heroImagePath,
             'cta_text' => $data['hero_cta_text'] ?? '',
             'cta_url' => $data['hero_cta_url'] ?? '',
             'is_visible' => $data['hero_is_visible'] ?? true,
@@ -141,14 +155,52 @@ class HomepageManager extends Page
             'is_visible' => $data['customization_is_visible'] ?? true,
         ]);
 
+        $mission = HomepageSection::getSection('mission');
+        $missionImagePath = $this->processSectionImage(
+            $imageService,
+            $data['mission_image'] ?? null,
+            $mission?->image_path,
+        );
+
         HomepageSection::updateSection('mission', [
             'title' => $data['mission_title'] ?? '',
             'content' => $data['mission_content'] ?? '',
+            'image_path' => $missionImagePath,
             'cta_text' => $data['mission_cta_text'] ?? '',
             'cta_url' => $data['mission_cta_url'] ?? '',
             'is_visible' => $data['mission_is_visible'] ?? true,
         ]);
 
+        cache()->forget('homepage_section.hero');
+        cache()->forget('homepage_section.customization_steps');
+        cache()->forget('homepage_section.mission');
+
+        $this->mount();
+
         Notification::make()->title('Homepage saved!')->success()->send();
+    }
+
+    private function processSectionImage(
+        ImageService $imageService,
+        mixed $uploadedFile,
+        ?string $existingPath,
+    ): ?string {
+        if ($uploadedFile === null || $uploadedFile === '') {
+            if ($existingPath) {
+                $imageService->deleteImage($existingPath);
+            }
+
+            return null;
+        }
+
+        if (is_string($uploadedFile) && $uploadedFile === $existingPath) {
+            return $existingPath;
+        }
+
+        if ($existingPath) {
+            $imageService->deleteImage($existingPath);
+        }
+
+        return $imageService->processHomepageImage($uploadedFile);
     }
 }

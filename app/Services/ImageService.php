@@ -54,16 +54,35 @@ class ImageService
         return $path;
     }
 
-    public function processHomepageImage(UploadedFile $file): string
+    public function processHomepageImage(UploadedFile|string $file): string
     {
         $uuid = Str::uuid();
-        $image = Image::read($file);
-        $image->scaleDown(width: 1920);
-        $path = "homepage/{$uuid}.webp";
-        $image->toWebp(quality: 85)
-            ->save(storage_path("app/public/{$path}"));
 
-        return $path;
+        if ($file instanceof UploadedFile) {
+            $image = Image::read($file);
+        } else {
+            $fullPath = storage_path("app/public/{$file}");
+
+            if (! file_exists($fullPath)) {
+                return $file;
+            }
+
+            $image = Image::read($fullPath);
+        }
+
+        $newPath = "homepage/{$uuid}.webp";
+        $image->scaleDown(width: 1920);
+        $image->toWebp(quality: 85)
+            ->save(storage_path("app/public/{$newPath}"));
+
+        if (is_string($file)) {
+            $originalFullPath = storage_path("app/public/{$file}");
+            if (file_exists($originalFullPath) && $originalFullPath !== storage_path("app/public/{$newPath}")) {
+                unlink($originalFullPath);
+            }
+        }
+
+        return $newPath;
     }
 
     public function deleteImage(string $path): void
