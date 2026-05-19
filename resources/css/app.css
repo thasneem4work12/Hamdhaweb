@@ -113,6 +113,17 @@
     @apply w-full h-full object-cover object-center;
   }
 
+  .hero-mobile-bleed {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+
+  .hero-mobile-bleed img {
+    @apply w-full h-full object-cover object-center;
+  }
+
   .filter-tab {
     @apply text-xs font-medium tracking-widest uppercase text-text-medium whitespace-nowrap pb-3 border-b-2 border-transparent hover:text-primary transition-colors;
   }

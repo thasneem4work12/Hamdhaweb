@@ -13,7 +13,7 @@
     }
 @endphp
 <section class="bg-offwhite overflow-hidden">
-    <div class="lg:hidden hero-fullbleed relative w-full aspect-[4/5] overflow-hidden" x-data="{
+    <div class="lg:hidden hero-mobile-bleed relative aspect-[4/5] overflow-hidden" x-data="{
         current: 0,
         slides: {{ $slides->count() }},
         init() {
@@ -32,13 +32,13 @@
 
     <div class="max-w-7xl mx-auto px-4 lg:px-16">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-0">
-            <div class="flex flex-col justify-center py-10 lg:py-20 lg:pr-12">
-                <p class="text-xs tracking-[0.2em] uppercase text-text-light mb-3">{{ $hero->subtitle }}</p>
+            <div class="flex flex-col justify-center pt-5 pb-8 lg:py-20 lg:pr-12">
+                <p class="text-xs tracking-[0.2em] uppercase text-text-light mb-1.5 lg:mb-3">{{ $hero->subtitle }}</p>
                 <h1 class="font-heading text-2xl lg:text-4xl font-bold text-text-dark leading-tight tracking-wide whitespace-pre-line lg:whitespace-pre-line hero-title-animate lg:animate-none">
                     {{ $hero->title }}
                 </h1>
-                <p class="text-sm text-text-medium mt-4 leading-relaxed max-w-md">{{ $hero->content }}</p>
-                <div class="flex flex-wrap gap-3 mt-6">
+                <p class="text-sm text-text-medium mt-2 lg:mt-4 leading-relaxed max-w-md">{{ $hero->content }}</p>
+                <div class="flex flex-wrap gap-3 mt-4 lg:mt-6">
                     <a href="{{ route('products.index') }}" class="btn-outline">Explore Design</a>
                     @php
                         $plainCategory = $categories->flatMap->children->firstWhere('slug', 'plain-abaya')
