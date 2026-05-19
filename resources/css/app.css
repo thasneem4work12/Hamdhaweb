@@ -28,11 +28,15 @@
   }
 
   .tag-pill {
-    @apply inline-block bg-primary text-white text-xs font-medium tracking-[0.4em] px-4 py-2 rounded-sm;
+    @apply inline-block bg-primary text-white text-[10px] font-medium tracking-[0.25em] px-2.5 py-1 rounded-sm;
   }
 
   .tag-pill-outline {
-    @apply inline-block border border-primary text-primary text-[10px] font-medium tracking-wide px-2.5 py-1 rounded-sm;
+    @apply inline-block border border-primary text-primary text-[9px] font-medium tracking-wide px-2 py-0.5 rounded-sm;
+  }
+
+  .tag-pill-sm {
+    @apply inline-block bg-primary text-white text-[8px] font-medium tracking-[0.18em] px-1.5 py-0.5 rounded-sm leading-tight;
   }
 
   .btn-primary {
@@ -52,7 +56,7 @@
   }
 
   .marquee-track {
-    @apply flex w-max gap-6;
+    @apply flex w-max items-center gap-4 lg:gap-6;
     animation: scroll 20s linear infinite;
   }
 
@@ -70,5 +74,54 @@
       animation: none;
       overflow-x: auto;
     }
+    .hero-title-animate {
+      animation: none;
+    }
+  }
+
+  .hero-title-animate {
+    animation: heroFade 8s ease-in-out infinite;
+  }
+
+  @keyframes heroFade {
+    0%, 100% { opacity: 1; transform: translateY(0); }
+    50% { opacity: 0.85; transform: translateY(-4px); }
+  }
+
+  .product-card-image-stack .product-card-cover,
+  .product-card-image-stack .product-card-hover {
+    @apply absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out;
+  }
+
+  .product-card-image-stack .product-card-hover {
+    @apply opacity-0;
+  }
+
+  .product-card:hover .product-card-image-stack .product-card-hover {
+    @apply opacity-100;
+  }
+
+  .search-suggest-dropdown {
+    @apply pointer-events-auto;
+  }
+
+  .hero-fullbleed {
+    @apply w-full max-w-none overflow-hidden;
+  }
+
+  .hero-fullbleed img {
+    @apply w-full h-full object-cover object-center;
+  }
+
+  .filter-tab {
+    @apply text-xs font-medium tracking-widest uppercase text-text-medium whitespace-nowrap pb-3 border-b-2 border-transparent hover:text-primary transition-colors;
+  }
+
+  .filter-tab-active {
+    @apply text-primary border-primary;
+  }
+
+  .plp-tagline {
+    @apply text-sm text-text-medium leading-relaxed max-w-xl mx-auto mt-3;
   }
 }
